@@ -1,6 +1,5 @@
 public class QuantityMeasurementApp {
 
-    // ✅ Feet Class (Same as UC1)
     public static class Feet {
         private final double value;
 
@@ -18,7 +17,6 @@ public class QuantityMeasurementApp {
         }
     }
 
-    // ✅ Inches Class (NEW)
     public static class Inches {
         private final double value;
 
@@ -36,7 +34,6 @@ public class QuantityMeasurementApp {
         }
     }
 
-    // ✅ Separate Methods (IMPORTANT FOR UC2)
     public static void demonstrateFeetEquality() {
         Feet f1 = new Feet(1.0);
         Feet f2 = new Feet(1.0);
