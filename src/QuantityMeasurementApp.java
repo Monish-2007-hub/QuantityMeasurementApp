@@ -5,47 +5,57 @@ public class QuantityMeasurementApp {
         return l1.equals(l2);
     }
 
-    // Comparison (wrapper)
-    public static boolean demonstrateLengthComparison(double v1, Length.LengthUnit u1,
-                                                      double v2, Length.LengthUnit u2) {
+    // Comparison using raw values
+    public static boolean demonstrateLengthComparison(double v1, LengthUnit u1,
+                                                      double v2, LengthUnit u2) {
         Length l1 = new Length(v1, u1);
         Length l2 = new Length(v2, u2);
-        return demonstrateLengthEquality(l1, l2);
+        return l1.equals(l2);
     }
 
-    // ✅ METHOD 1 (RAW VALUES)
+    // Conversion (raw values)
     public static Length demonstrateLengthConversion(double value,
-                                                     Length.LengthUnit from,
-                                                     Length.LengthUnit to) {
-        Length l = new Length(value, from);
-        return l.convertTo(to);
+                                                     LengthUnit from,
+                                                     LengthUnit to) {
+        return new Length(value, from).convertTo(to);
     }
 
-    // ✅ METHOD 2 (OVERLOADED)
+    // Conversion (object)
     public static Length demonstrateLengthConversion(Length length,
-                                                     Length.LengthUnit to) {
+                                                     LengthUnit to) {
         return length.convertTo(to);
+    }
+
+    // Addition (UC6)
+    public static Length demonstrateLengthAddition(Length l1, Length l2) {
+        return l1.add(l2);
+    }
+
+    // Addition with target unit (UC7)
+    public static Length demonstrateLengthAddition(Length l1,
+                                                   Length l2,
+                                                   LengthUnit targetUnit) {
+        return l1.add(l2, targetUnit);
     }
 
     public static void main(String[] args) {
 
-        // Example usage
-        Length result1 = demonstrateLengthConversion(1.0,
-                Length.LengthUnit.FEET,
-                Length.LengthUnit.INCHES);
+        // Equality
+        System.out.println(demonstrateLengthComparison(1.0, LengthUnit.FEET,
+                12.0, LengthUnit.INCHES));
 
-        System.out.println(result1); // 12.00 INCHES
+        // Conversion
+        System.out.println(demonstrateLengthConversion(1.0,
+                LengthUnit.FEET,
+                LengthUnit.INCHES));
 
-        Length yard = new Length(2.0, Length.LengthUnit.YARDS);
-        Length result2 = demonstrateLengthConversion(yard,
-                Length.LengthUnit.INCHES);
+        // Addition
+        Length l1 = new Length(1.0, LengthUnit.FEET);
+        Length l2 = new Length(12.0, LengthUnit.INCHES);
 
-        System.out.println(result2); // 72.00 INCHES
-    }
-    public static Length demonstrateLengthAddition(Length l1, Length l2) {
-        return l1.add(l2);
-    }
-    public static Length demonstrateLengthAddition(Length l1, Length l2, Length.LengthUnit targetUnit) {
-        return l1.add(l2, targetUnit);
+        System.out.println(demonstrateLengthAddition(l1, l2)); // 2 FEET
+
+        // Addition with target
+        System.out.println(demonstrateLengthAddition(l1, l2, LengthUnit.INCHES)); // 24 INCHES
     }
 }
