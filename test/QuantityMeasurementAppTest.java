@@ -209,4 +209,55 @@ public class QuantityMeasurementAppTest {
             l1.add(null);
         });
     }
+    @Test
+    void addWithTargetFeet() {
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET);
+        Length l2 = new Length(12.0, Length.LengthUnit.INCHES);
+
+        Length result = QuantityMeasurementApp.demonstrateLengthAddition(l1, l2, Length.LengthUnit.FEET);
+        Length expected = new Length(2.0, Length.LengthUnit.FEET);
+
+        assertTrue(result.equals(expected));
+    }
+
+    @Test
+    void addWithTargetInches() {
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET);
+        Length l2 = new Length(12.0, Length.LengthUnit.INCHES);
+
+        Length result = QuantityMeasurementApp.demonstrateLengthAddition(l1, l2, Length.LengthUnit.INCHES);
+        Length expected = new Length(24.0, Length.LengthUnit.INCHES);
+
+        assertTrue(result.equals(expected));
+    }
+
+    @Test
+    void addWithTargetYards() {
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET);
+        Length l2 = new Length(12.0, Length.LengthUnit.INCHES);
+
+        Length result = QuantityMeasurementApp.demonstrateLengthAddition(l1, l2, Length.LengthUnit.YARDS);
+
+        assertEquals(0.67, result.convertTo(Length.LengthUnit.YARDS).value, 0.01);
+    }
+
+    @Test
+    void addWithTargetCm() {
+        Length l1 = new Length(1.0, Length.LengthUnit.INCHES);
+        Length l2 = new Length(1.0, Length.LengthUnit.INCHES);
+
+        Length result = QuantityMeasurementApp.demonstrateLengthAddition(l1, l2, Length.LengthUnit.CENTIMETERS);
+
+        assertEquals(5.08, result.convertTo(Length.LengthUnit.CENTIMETERS).value, 0.01);
+    }
+
+    @Test
+    void addNullTargetShouldThrow() {
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET);
+        Length l2 = new Length(1.0, Length.LengthUnit.FEET);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            l1.add(l2, null);
+        });
+    }
 }
