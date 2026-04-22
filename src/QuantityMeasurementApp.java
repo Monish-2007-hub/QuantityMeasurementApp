@@ -42,4 +42,7 @@ public class QuantityMeasurementApp {
 
         System.out.println(result2); // 72.00 INCHES
     }
+    public static Length demonstrateLengthAddition(Length l1, Length l2) {
+        return l1.add(l2);
+    }
 }

@@ -65,4 +65,29 @@ public class Length {
 
         return new Length(convertedValue, targetUnit);
     }
+    public Length add(Length thatLength) {
+
+        if (thatLength == null) {
+            throw new IllegalArgumentException("Length cannot be null");
+        }
+
+        if (!Double.isFinite(this.value) || !Double.isFinite(thatLength.value)) {
+            throw new IllegalArgumentException("Invalid value");
+        }
+
+        // Step 1: Convert both to base unit (inches)
+        double base1 = this.value * this.unit.getConversionFactor();
+        double base2 = thatLength.value * thatLength.unit.getConversionFactor();
+
+        // Step 2: Add
+        double sumBase = base1 + base2;
+
+        // Step 3: Convert back to this unit
+        double resultValue = sumBase / this.unit.getConversionFactor();
+
+        // Step 4: Round
+        resultValue = Math.round(resultValue * 100.0) / 100.0;
+
+        return new Length(resultValue, this.unit);
+    }
 }
