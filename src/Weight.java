@@ -1,26 +1,26 @@
-public class Length {
+public class Weight {
 
     private final double value;
-    private final LengthUnit unit;
+    private final WeightUnit unit;
 
-    public Length(double value, LengthUnit unit) {
+    public Weight(double value, WeightUnit unit) {
         if (unit == null) throw new IllegalArgumentException();
         this.value = value;
         this.unit = unit;
     }
 
-    public Length convertTo(LengthUnit target) {
+    public Weight convertTo(WeightUnit target) {
         double base = unit.toBase(value);
         double result = target.fromBase(base);
-        return new Length(result, target);
+        return new Weight(result, target);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Length)) return false;
+        if (!(o instanceof Weight)) return false;
 
-        Length other = (Length) o;
+        Weight other = (Weight) o;
 
         double b1 = unit.toBase(value);
         double b2 = other.unit.toBase(other.value);
@@ -28,13 +28,13 @@ public class Length {
         return Double.compare(b1, b2) == 0;
     }
 
-    public Length add(Length other) {
+    public Weight add(Weight other) {
         double sum = unit.toBase(value) + other.unit.toBase(other.value);
-        return new Length(unit.fromBase(sum), unit);
+        return new Weight(unit.fromBase(sum), unit);
     }
 
-    public Length add(Length other, LengthUnit target) {
+    public Weight add(Weight other, WeightUnit target) {
         double sum = unit.toBase(value) + other.unit.toBase(other.value);
-        return new Length(target.fromBase(sum), target);
+        return new Weight(target.fromBase(sum), target);
     }
 }

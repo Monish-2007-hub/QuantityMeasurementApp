@@ -1,13 +1,14 @@
-public enum LengthUnit {
+public enum WeightUnit {
 
-    FEET(1.0),
-    INCHES(1.0 / 12.0),
-    YARDS(3.0),
-    CENTIMETERS(1.0 / 30.48);
+    MILLIGRAM(0.001),
+    GRAM(1.0),
+    KILOGRAM(1000.0),
+    POUND(453.592),
+    TONNE(1_000_000.0);
 
-    private final double factor; // base = FEET
+    private final double factor; // base = GRAM
 
-    LengthUnit(double factor) {
+    WeightUnit(double factor) {
         this.factor = factor;
     }
 

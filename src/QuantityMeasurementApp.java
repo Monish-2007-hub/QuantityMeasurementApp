@@ -1,61 +1,49 @@
 public class QuantityMeasurementApp {
 
-    // Equality
-    public static boolean demonstrateLengthEquality(Length l1, Length l2) {
+    // LENGTH
+    public static boolean lengthEqual(Length l1, Length l2) {
         return l1.equals(l2);
     }
 
-    // Comparison using raw values
-    public static boolean demonstrateLengthComparison(double v1, LengthUnit u1,
-                                                      double v2, LengthUnit u2) {
-        Length l1 = new Length(v1, u1);
-        Length l2 = new Length(v2, u2);
-        return l1.equals(l2);
+    public static Length lengthConvert(double v, LengthUnit f, LengthUnit t) {
+        return new Length(v, f).convertTo(t);
     }
 
-    // Conversion (raw values)
-    public static Length demonstrateLengthConversion(double value,
-                                                     LengthUnit from,
-                                                     LengthUnit to) {
-        return new Length(value, from).convertTo(to);
-    }
-
-    // Conversion (object)
-    public static Length demonstrateLengthConversion(Length length,
-                                                     LengthUnit to) {
-        return length.convertTo(to);
-    }
-
-    // Addition (UC6)
-    public static Length demonstrateLengthAddition(Length l1, Length l2) {
+    public static Length lengthAdd(Length l1, Length l2) {
         return l1.add(l2);
     }
 
-    // Addition with target unit (UC7)
-    public static Length demonstrateLengthAddition(Length l1,
-                                                   Length l2,
-                                                   LengthUnit targetUnit) {
-        return l1.add(l2, targetUnit);
+    public static Length lengthAdd(Length l1, Length l2, LengthUnit t) {
+        return l1.add(l2, t);
+    }
+
+    // WEIGHT
+    public static boolean weightEqual(Weight w1, Weight w2) {
+        return w1.equals(w2);
+    }
+
+    public static Weight weightConvert(double v, WeightUnit f, WeightUnit t) {
+        return new Weight(v, f).convertTo(t);
+    }
+
+    public static Weight weightAdd(Weight w1, Weight w2) {
+        return w1.add(w2);
+    }
+
+    public static Weight weightAdd(Weight w1, Weight w2, WeightUnit t) {
+        return w1.add(w2, t);
     }
 
     public static void main(String[] args) {
 
-        // Equality
-        System.out.println(demonstrateLengthComparison(1.0, LengthUnit.FEET,
-                12.0, LengthUnit.INCHES));
+        System.out.println(weightEqual(
+                new Weight(1, WeightUnit.KILOGRAM),
+                new Weight(1000, WeightUnit.GRAM)
+        ));
 
-        // Conversion
-        System.out.println(demonstrateLengthConversion(1.0,
-                LengthUnit.FEET,
-                LengthUnit.INCHES));
-
-        // Addition
-        Length l1 = new Length(1.0, LengthUnit.FEET);
-        Length l2 = new Length(12.0, LengthUnit.INCHES);
-
-        System.out.println(demonstrateLengthAddition(l1, l2)); // 2 FEET
-
-        // Addition with target
-        System.out.println(demonstrateLengthAddition(l1, l2, LengthUnit.INCHES)); // 24 INCHES
+        System.out.println(lengthEqual(
+                new Length(1, LengthUnit.FEET),
+                new Length(12, LengthUnit.INCHES)
+        ));
     }
 }
