@@ -1,6 +1,6 @@
 public class Length {
 
-    private double value;
+    double value;
     private LengthUnit unit;
 
     // ✅ Extended Enum
@@ -42,5 +42,27 @@ public class Length {
 
         Length other = (Length) obj;
         return this.compare(other);
+    }
+    // Convert to target unit
+    public Length convertTo(LengthUnit targetUnit) {
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+
+        if (!Double.isFinite(this.value)) {
+            throw new IllegalArgumentException("Invalid value");
+        }
+
+        // Step 1: Convert to base unit (inches)
+        double baseValue = this.value * this.unit.getConversionFactor();
+
+        // Step 2: Convert to target unit
+        double convertedValue = baseValue / targetUnit.getConversionFactor();
+
+        // Round to 2 decimal places
+        convertedValue = Math.round(convertedValue * 100.0) / 100.0;
+
+        return new Length(convertedValue, targetUnit);
     }
 }

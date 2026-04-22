@@ -98,4 +98,53 @@ public class QuantityMeasurementAppTest {
         assertTrue(feet.equals(inches));
         assertTrue(yard.equals(inches));
     }
+    @Test
+    void testFeetToInches() {
+        Length result = QuantityMeasurementApp.demonstrateLengthConversion(
+                1.0, Length.LengthUnit.FEET, Length.LengthUnit.INCHES);
+
+        assertEquals(12.0, result.convertTo(Length.LengthUnit.INCHES).value, 0.01);
+    }
+
+    @Test
+    void testYardsToFeet() {
+        Length result = QuantityMeasurementApp.demonstrateLengthConversion(
+                3.0, Length.LengthUnit.YARDS, Length.LengthUnit.FEET);
+
+        assertEquals(9.0, result.convertTo(Length.LengthUnit.FEET).value, 0.01);
+    }
+
+    @Test
+    void testRoundTripConversion() {
+        Length original = new Length(5.0, Length.LengthUnit.FEET);
+
+        Length inches = original.convertTo(Length.LengthUnit.INCHES);
+        Length back = inches.convertTo(Length.LengthUnit.FEET);
+
+        assertEquals(original.convertTo(Length.LengthUnit.FEET).value,
+                back.convertTo(Length.LengthUnit.FEET).value, 0.01);
+    }
+
+    @Test
+    void testZeroConversion() {
+        Length result = QuantityMeasurementApp.demonstrateLengthConversion(
+                0.0, Length.LengthUnit.FEET, Length.LengthUnit.INCHES);
+
+        assertEquals(0.0, result.convertTo(Length.LengthUnit.INCHES).value, 0.01);
+    }
+
+    @Test
+    void testNegativeConversion() {
+        Length result = QuantityMeasurementApp.demonstrateLengthConversion(
+                -1.0, Length.LengthUnit.FEET, Length.LengthUnit.INCHES);
+
+        assertEquals(-12.0, result.convertTo(Length.LengthUnit.INCHES).value, 0.01);
+    }
+
+    @Test
+    void testInvalidUnit() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Length(1.0, Length.LengthUnit.FEET).convertTo(null);
+        });
+    }
 }
