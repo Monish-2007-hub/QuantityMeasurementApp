@@ -3,10 +3,12 @@ public class Length {
     private double value;
     private LengthUnit unit;
 
-    // Enum for units
+    // ✅ Extended Enum
     public enum LengthUnit {
-        FEET(12.0),
-        INCHES(1.0);
+        FEET(12.0),          // 1 ft = 12 in
+        INCHES(1.0),         // base unit
+        YARDS(36.0),         // 1 yd = 36 in
+        CENTIMETERS(0.393701); // 1 cm = 0.393701 in
 
         private final double conversionFactor;
 
@@ -19,23 +21,20 @@ public class Length {
         }
     }
 
-    // Constructor
     public Length(double value, LengthUnit unit) {
         this.value = value;
         this.unit = unit;
     }
 
-    // Convert to base unit (inches)
+    // Convert everything → inches
     private double toBaseUnit() {
         return this.value * this.unit.getConversionFactor();
     }
 
-    // Compare two Length objects
     public boolean compare(Length other) {
         return Double.compare(this.toBaseUnit(), other.toBaseUnit()) == 0;
     }
 
-    // Override equals()
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
